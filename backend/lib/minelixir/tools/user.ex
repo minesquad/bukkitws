@@ -16,6 +16,13 @@ defmodule Minelixir.Tools.User do
     end
   end
 
+  def list!() do
+    case list() do
+      {:ok, data} -> data
+      _ -> throw :error
+    end
+  end
+
   def stats(uuid) do
     stats = File.read(
       Application.get_env(:minelixir, :minecraft_server_path) <> "/world/stats/" <> uuid <> ".json"

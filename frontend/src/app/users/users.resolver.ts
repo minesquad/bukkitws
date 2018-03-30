@@ -12,6 +12,8 @@ export class UsersResolver implements Resolve<UserModel[]> {
 
   resolve(route: ActivatedRouteSnapshot,
           state: RouterStateSnapshot): Observable<UserModel[]> | Promise<UserModel[]> | UserModel[] {
-    return this.socket.push<UserModel[]>('users', 'list');
+    return this.socket.push('users', 'list').then((response: any) => {
+      return <UserModel[]>(response.users);
+    });
   }
 }
