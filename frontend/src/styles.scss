@@ -1,1 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+.server-stats {
+
+}
+
+@import "assets/map/css/leaflet";
+@import "assets/map/css/dynmap_style";
+
+mine-map {
+  width: 800px;
+  height: 800px;
+  display: block;
+  background: black;
+  .dynmap {
+    width: 100%;
+    height: 100%;
+  }
+}

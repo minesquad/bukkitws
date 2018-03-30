@@ -7,15 +7,18 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { AppComponent } from './app.component';
 
 import { environment } from '../environments/environment';
-import {WebsocketService} from "./shared/websocket.service";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {UiModule} from "./ui/ui.module";
-import {ServerStatsComponent} from "./server-stats/server-stats.component";
+import {WebsocketService} from './shared/websocket.service';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {UiModule} from './ui/ui.module';
+import {ServerStatsComponent} from './server-stats/server-stats.component';
+import { ScriptLoaderService } from './shared/script-loader.service';
+import { MapComponent } from './map/map.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ServerStatsComponent,
+    MapComponent,
   ],
   imports: [
     BrowserModule,
@@ -26,6 +29,7 @@ import {ServerStatsComponent} from "./server-stats/server-stats.component";
   ],
   providers: [
     WebsocketService,
+    ScriptLoaderService,
   ],
   bootstrap: [AppComponent]
 })
