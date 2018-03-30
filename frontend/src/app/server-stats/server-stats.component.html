@@ -1,5 +1,38 @@
-<span *ngIf="stats">
-    <span>RAM: {{ stats["ram"]["usage"] }}%</span>
-    <span>DISK: {{ stats["disk"]["usage"] }}%</span>
-    <span>DISK: {{ stats["cpu"]["usage"] }}%</span>
-</span>
+<div class="stats" *ngIf="stats">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>RAM</mat-card-title>
+            <mat-card-subtitle>{{ stats['ram']['usage'] }}%</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-footer>
+            <mat-progress-bar color="primary"
+                              mode="determinate"
+                              [value]="stats['ram']['usage']">
+            </mat-progress-bar>
+        </mat-card-footer>
+    </mat-card>
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>DISK</mat-card-title>
+            <mat-card-subtitle>{{ stats['disk']['usage'] }}%</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-footer>
+            <mat-progress-bar color="accent"
+                              mode="determinate"
+                              [value]="stats['disk']['usage']">
+            </mat-progress-bar>
+        </mat-card-footer>
+    </mat-card>
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>CPU</mat-card-title>
+            <mat-card-subtitle>{{ stats['cpu']['usage'] }}%</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-footer>
+            <mat-progress-bar color="warn"
+                              mode="determinate"
+                              [value]="stats['cpu']['usage']">
+            </mat-progress-bar>
+        </mat-card-footer>
+    </mat-card>
+</div>

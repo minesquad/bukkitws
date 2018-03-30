@@ -1,0 +1,16 @@
+:host {
+  .stats {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    mat-card {
+      width: calc(100% / 3);
+      mat-card-header {
+        .mat-card-header-text {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

@@ -1,1 +1,15 @@
-<pre>{{ users | json }}</pre>
+<mat-list *ngIf="users">
+    <mat-list-item *ngFor="let user of users">
+        {{ user.name }}
+        <button mat-icon-button
+                color="accent"
+                [routerLink]="'/users/' + user['uuid']">
+            <mat-icon>storage</mat-icon>
+        </button>
+        <button mat-icon-button
+                color="warn"
+                [routerLink]="'/users/' + user['uuid'] + '/advancements'">
+            <mat-icon>info</mat-icon>
+        </button>
+    </mat-list-item>
+</mat-list>
