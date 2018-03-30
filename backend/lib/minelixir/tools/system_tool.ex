@@ -72,10 +72,10 @@ defmodule Minelixir.Tools.SystemTool do
 
     def get_disk_info do
       [_, _, used, free, usage, _, _, _, _] = "df -m | grep /$"
-                                        |> Minelixir.Tools.SystemTool.exec
-                                        |> String.trim
-                                        |> String.replace(~r/\s+/, " ")
-                                        |> String.split(" ")
+                                              |> Minelixir.Tools.SystemTool.exec
+                                              |> String.trim
+                                              |> String.replace(~r/\s+/, " ")
+                                              |> String.split(" ")
 
       used = elem(Integer.parse(used), 0) / 1024
       free = elem(Integer.parse(free), 0) / 1024
@@ -101,6 +101,91 @@ defmodule Minelixir.Tools.SystemTool do
       |> String.to_charlist
       |> :os.cmd
       |> List.to_string()
+    end
+
+    def get_cpu_info do
+      cores = "cat /proc/cpuinfo"
+              |> Minelixir.Tools.SystemTool.exec()
+              |> (&(Regex.run(~r/cpu\scores\s+:\s(\d+)/, &1))).()
+              |> Enum.at(1)
+              |> Integer.parse
+              |> elem(0)
+
+      usage = "cat /proc/loadavg"
+              |> Minelixir.Tools.SystemTool.exec
+              |> (&(Regex.run(~r/(.*?)\s.*/, &1))).()
+              |> Enum.at(1)
+              |> Float.parse
+              |> elem(0)
+              |> Kernel.*(100)
+              |> Kernel./(cores)
+              |> Float.round(2)
+
+      uptime = "cut -d. -f1 /proc/uptime"
+               |> Minelixir.Tools.SystemTool.exec
+               |> Integer.parse
+               |> elem(0)
+
+      %{
+        cores: cores,
+        usage: usage,
+        uptime: uptime,
+      }
+    end
+
+    def get_ram_info do
+      meminfo = "awk '$3==\"kB\"{$2=$2/1024;$3=\"\"} 1' /proc/meminfo"
+                |> Minelixir.Tools.SystemTool.exec
+                |> String.trim
+                |> String.split("\n")
+                |> Enum.map(&String.trim/1)
+                |> Enum.map(
+                     fn line ->
+                       [key, value] = line
+                                      |> String.split(":")
+
+                       key = key
+                             |> String.trim
+                             |> String.downcase
+                             |> String.to_atom
+
+                       value = value
+                               |> String.trim
+                               |> Float.parse
+                               |> elem(0)
+
+                       {key, value}
+                     end
+                   )
+                |> Map.new
+
+      used = meminfo.memtotal - meminfo.memfree - meminfo.cached;
+
+      %{
+        total: meminfo.memtotal,
+        free: meminfo.memtotal - used,
+        used: used,
+        usage: Float.round(used / meminfo.memtotal * 100, 2),
+      }
+    end
+
+    def get_disk_info do
+      [_, _, used, free, usage, _] = "df -mP | grep /$"
+                                     |> Minelixir.Tools.SystemTool.exec
+                                     |> String.trim
+                                     |> String.replace(~r/\s+/, " ")
+                                     |> String.split(" ")
+
+      used = elem(Integer.parse(used), 0) / 1024
+      free = elem(Integer.parse(free), 0) / 1024
+      usage = elem(Float.parse(usage), 0)
+
+      %{
+        total: free + used,
+        free: free,
+        used: used,
+        usage: usage,
+      }
     end
 
   end
