@@ -1,4 +1,3 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -19,12 +18,12 @@ import { UsersModule } from "./users/users.module";
     ServerStatsComponent,
   ],
   imports: [
-    BrowserModule,
     BrowserAnimationsModule,
     UiModule,
     AppRoutingModule,
     ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
     UsersModule,
+    UiModule,
   ],
   providers: [
     WebsocketService,
