@@ -31,7 +31,7 @@ defmodule Minelixir.Tools.SystemTool do
 
       uptime = "sysctl kern.boottime"
                |> Minelixir.Tools.SystemTool.exec
-               |> (&(Regex.run(~r/kern.boottime: \{ sec = (\d+), usec = 836309 \}.*/, &1))).()
+               |> (&(Regex.run(~r/kern.boottime: \{ sec = (\d+), usec = \d+ \}.*/, &1))).()
                |> Enum.at(1)
                |> Integer.parse
                |> elem(0)

@@ -2,7 +2,7 @@ defmodule MinelixirWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "room:*", MinelixirWeb.RoomChannel
+  channel "server", MinelixirWeb.Channels.ServerChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
