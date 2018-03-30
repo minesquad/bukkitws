@@ -25,6 +25,9 @@ defmodule MinelixirWeb.Router do
 
     scope "/v1", Api.V1 do
       get "/system", SystemController, :index
+      get "/users", UserController, :list
+      get "/users/:uuid", UserController, :stats
+      get "/users/:uuid/advancements", UserController, :advancements
     end
   end
 
