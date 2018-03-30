@@ -1,4 +1,4 @@
-defmodule MinelixirWeb.UserController do
+defmodule MinelixirWeb.Controllers.Api.V1.UserController do
   use MinelixirWeb, :controller
 
   def index(conn, _params) do
