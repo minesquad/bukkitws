@@ -1,0 +1,7 @@
+*
+!.gitignore
+!craftbukkit-1.12.2.jar
+!eula.txt
+!permissions.yml
+!server.properties
+!plugins

@@ -1,0 +1,5 @@
+server.basics:
+  default: true
+  children:
+    skinsrestorer.playercmds: true
+    welcome.see: true
