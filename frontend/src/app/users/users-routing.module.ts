@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { UsersComponent } from "./users.component";
-import { UsersResolver } from './users.resolver';
+import { UsersResolver } from './shared/users.resolver';
+import { UserStatsComponent } from './user-stats/user-stats.component';
+import { UserStatsResolver } from './shared/user-stats.resolver';
+import { UserAdvancementsResolver } from './shared/user-advancements.resolver';
+import { UserAdvancementsComponent } from './user-advancements/user-advancements.component';
 
 const routes: Routes = [
   {
@@ -13,8 +17,18 @@ const routes: Routes = [
   },
   {
     path: 'users/:uuid',
-    component: UsersComponent,
-  }
+    component: UserStatsComponent,
+    resolve: {
+      stats: UserStatsResolver
+    },
+  },
+  {
+    path: 'users/:uuid/advancements',
+    component: UserAdvancementsComponent,
+    resolve: {
+      advancements: UserAdvancementsResolver
+    },
+  },
 ];
 
 @NgModule({
@@ -26,6 +40,8 @@ const routes: Routes = [
   ],
   providers: [
     UsersResolver,
+    UserStatsResolver,
+    UserAdvancementsResolver,
   ]
 })
 export class UsersRoutingModule {

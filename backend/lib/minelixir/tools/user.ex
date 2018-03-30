@@ -39,6 +39,13 @@ defmodule Minelixir.Tools.User do
     end
   end
 
+  def stats!(uuid) do
+    case stats(uuid) do
+      {:ok, data} -> data
+      _ -> throw :error
+    end
+  end
+
   def advancements(uuid) do
     advancements = File.read(
       Application.get_env(:minelixir, :minecraft_server_path) <> "/world/advancements/" <> uuid <> ".json"
@@ -52,6 +59,13 @@ defmodule Minelixir.Tools.User do
         }
       _ ->
         {:error, %{}}
+    end
+  end
+
+  def advancements!(uuid) do
+    case advancements(uuid) do
+      {:ok, data} -> data
+      _ -> throw :error
     end
   end
 
