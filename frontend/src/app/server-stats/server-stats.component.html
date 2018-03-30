@@ -1,3 +1,5 @@
-<span>RAM: {{ stats["ram"]["usage"] }}%</span>
-<span>DISK: {{ stats["disk"]["usage"] }}%</span>
-<span>DISK: {{ stats["cpu"]["usage"] }}%</span>
+<span *ngIf="stats">
+    <span>RAM: {{ stats["ram"]["usage"] }}%</span>
+    <span>DISK: {{ stats["disk"]["usage"] }}%</span>
+    <span>DISK: {{ stats["cpu"]["usage"] }}%</span>
+</span>
