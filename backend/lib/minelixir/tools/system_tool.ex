@@ -77,8 +77,8 @@ defmodule Minelixir.Tools.SystemTool do
                                               |> String.replace(~r/\s+/, " ")
                                               |> String.split(" ")
 
-      used = elem(Integer.parse(used), 0) / 1024
-      free = elem(Integer.parse(free), 0) / 1024
+      used = elem(Integer.parse(used), 0)
+      free = elem(Integer.parse(free), 0)
       usage = elem(Float.parse(usage), 0)
 
       %{
@@ -176,8 +176,8 @@ defmodule Minelixir.Tools.SystemTool do
                                      |> String.replace(~r/\s+/, " ")
                                      |> String.split(" ")
 
-      used = elem(Integer.parse(used), 0) / 1024
-      free = elem(Integer.parse(free), 0) / 1024
+      used = elem(Integer.parse(used), 0)
+      free = elem(Integer.parse(free), 0)
       usage = elem(Float.parse(usage), 0)
 
       %{
@@ -201,5 +201,14 @@ defmodule Minelixir.Tools.SystemTool do
   def get_cpu_info, do: apply(implementation(), :get_cpu_info, [])
   def get_ram_info, do: apply(implementation(), :get_ram_info, [])
   def get_disk_info, do: apply(implementation(), :get_disk_info, [])
+
+  def summary do
+    %{
+      os: get_os,
+      cpu: get_cpu_info,
+      ram: get_ram_info,
+      disk: get_disk_info,
+    }
+  end
 
 end
