@@ -13,7 +13,7 @@ export class UserAdvancementsResolver implements Resolve<UserModel[]> {
   resolve(route: ActivatedRouteSnapshot,
           state: RouterStateSnapshot): Observable<UserModel[]> | Promise<UserModel[]> | UserModel[] {
     return this.socket.push('users', 'advancements', {
-      'uuid': '3d91467c-cf77-410c-8ce0-4713b3e3f532'
+      'uuid': route.params.uuid
     });
   }
 }
