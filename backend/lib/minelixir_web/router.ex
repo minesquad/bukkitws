@@ -20,7 +20,10 @@ defmodule MinelixirWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", MinelixirWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", MinelixirWeb do
+    pipe_through :api
+
+    get "/users", UserController, :index
+    get "/users/:uuid", UserController, :detail
+  end
 end
