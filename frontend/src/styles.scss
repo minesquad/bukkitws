@@ -1,7 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
-.server-stats {
+@import "~normalize-scss/sass/normalize";
 
-}
+@include normalize();
+
+@import "theme";
 
 @import "assets/map/css/leaflet";
 @import "assets/map/css/dynmap_style";

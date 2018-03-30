@@ -115,10 +115,6 @@ export class WebsocketService {
 
   // noinspection JSUnusedGlobalSymbols
   public push<T>(channel: string, event: string, payload: any = {}, timeout: number = 10000): Promise<T> {
-    if (!this.isConnected()) {
-      return Promise.reject('Not connected');
-    }
-
     return this.join(channel).then(() => {
       return this.channels[channel].promise.then(() => {
         return new Promise<T>((resolve, reject) => {

@@ -3,6 +3,7 @@ defmodule MinelixirWeb.UserSocket do
 
   ## Channels
   channel "server", MinelixirWeb.Channels.Server
+  channel "users", MinelixirWeb.Channels.User
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
