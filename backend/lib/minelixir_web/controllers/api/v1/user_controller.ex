@@ -13,7 +13,7 @@ defmodule MinelixirWeb.Controllers.Api.V1.UserController do
            )
       _ ->
         conn
-        |> put_status(400)
+        |> put_status(404)
         |> json(
              %{
 
@@ -35,7 +35,7 @@ defmodule MinelixirWeb.Controllers.Api.V1.UserController do
            )
       _ ->
         conn
-        |> put_status(400)
+        |> put_status(404)
         |> json(
              %{
 
@@ -57,7 +57,7 @@ defmodule MinelixirWeb.Controllers.Api.V1.UserController do
            )
       _ ->
         conn
-        |> put_status(400)
+        |> put_status(404)
         |> json(
              %{
 
