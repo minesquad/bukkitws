@@ -18,7 +18,6 @@ export class ServerStatsComponent implements OnInit, OnDestroy {
     await this.socket.join('server');
     this.subscription = this.socket.on('server', 'stats').subscribe((stats: any) => {
       this.stats = stats;
-      console.log(111)
     })
   }
 

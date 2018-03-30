@@ -1,11 +1,11 @@
 defmodule MinelixirWeb.Controllers.Api.V1.SystemController do
   use MinelixirWeb, :controller
 
-  alias Minelixir.Tools.SystemTool
+  alias Minelixir.Tools.System
 
   def index(conn, _params) do
     conn
-    |> json(SystemTool.summary())
+    |> json(System.summary())
   end
 
 end

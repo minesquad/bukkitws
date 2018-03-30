@@ -1,4 +1,4 @@
-defmodule Minelixir.Tools.SystemTool do
+defmodule Minelixir.Tools.System do
 
   def exec(cmd) do
     cmd
@@ -15,12 +15,12 @@ defmodule Minelixir.Tools.SystemTool do
 
     def get_cpu_info do
       cores = "sysctl -n hw.ncpu"
-              |> Minelixir.Tools.SystemTool.exec
+              |> Minelixir.Tools.System.exec
               |> Integer.parse
               |> elem(0)
 
       usage = "sysctl -n vm.loadavg"
-              |> Minelixir.Tools.SystemTool.exec
+              |> Minelixir.Tools.System.exec
               |> (&(Regex.run(~r/\{\s(.*?)\s.*?\s.*?\s\}/, &1))).()
               |> Enum.at(1)
               |> Float.parse
@@ -30,7 +30,7 @@ defmodule Minelixir.Tools.SystemTool do
               |> Float.round(2)
 
       uptime = "sysctl kern.boottime"
-               |> Minelixir.Tools.SystemTool.exec
+               |> Minelixir.Tools.System.exec
                |> (&(Regex.run(~r/kern.boottime: \{ sec = (\d+), usec = \d+ \}.*/, &1))).()
                |> Enum.at(1)
                |> Integer.parse
@@ -45,7 +45,7 @@ defmodule Minelixir.Tools.SystemTool do
 
     def get_ram_info do
       memsize = "sysctl hw.memsize"
-                |> Minelixir.Tools.SystemTool.exec
+                |> Minelixir.Tools.System.exec
                 |> (&(Regex.run(~r/hw\.memsize\:\s(\d+).*/, &1))).()
                 |> Enum.at(1)
                 |> Integer.parse
@@ -54,7 +54,7 @@ defmodule Minelixir.Tools.SystemTool do
                 |> Kernel./(1024)
 
       top = "top -l 1 | grep -E \"^CPU|^Phys\""
-            |> Minelixir.Tools.SystemTool.exec
+            |> Minelixir.Tools.System.exec
 
       [_, used, wired, unused] = Regex.run(~r/PhysMem\:\s(\d+)M\sused\s\((\d+)M\swired\),\s(\d+)M\sunused\..*?/, top)
 
@@ -72,7 +72,7 @@ defmodule Minelixir.Tools.SystemTool do
 
     def get_disk_info do
       [_, _, used, free, usage, _, _, _, _] = "df -m | grep /$"
-                                              |> Minelixir.Tools.SystemTool.exec
+                                              |> Minelixir.Tools.System.exec
                                               |> String.trim
                                               |> String.replace(~r/\s+/, " ")
                                               |> String.split(" ")
@@ -105,14 +105,14 @@ defmodule Minelixir.Tools.SystemTool do
 
     def get_cpu_info do
       cores = "cat /proc/cpuinfo"
-              |> Minelixir.Tools.SystemTool.exec()
+              |> Minelixir.Tools.System.exec()
               |> (&(Regex.run(~r/cpu\scores\s+:\s(\d+)/, &1))).()
               |> Enum.at(1)
               |> Integer.parse
               |> elem(0)
 
       usage = "cat /proc/loadavg"
-              |> Minelixir.Tools.SystemTool.exec
+              |> Minelixir.Tools.System.exec
               |> (&(Regex.run(~r/(.*?)\s.*/, &1))).()
               |> Enum.at(1)
               |> Float.parse
@@ -122,7 +122,7 @@ defmodule Minelixir.Tools.SystemTool do
               |> Float.round(2)
 
       uptime = "cut -d. -f1 /proc/uptime"
-               |> Minelixir.Tools.SystemTool.exec
+               |> Minelixir.Tools.System.exec
                |> Integer.parse
                |> elem(0)
 
@@ -135,7 +135,7 @@ defmodule Minelixir.Tools.SystemTool do
 
     def get_ram_info do
       meminfo = "awk '$3==\"kB\"{$2=$2/1024;$3=\"\"} 1' /proc/meminfo"
-                |> Minelixir.Tools.SystemTool.exec
+                |> Minelixir.Tools.System.exec
                 |> String.trim
                 |> String.split("\n")
                 |> Enum.map(&String.trim/1)
@@ -171,7 +171,7 @@ defmodule Minelixir.Tools.SystemTool do
 
     def get_disk_info do
       [_, _, used, free, usage, _] = "df -mP | grep /$"
-                                     |> Minelixir.Tools.SystemTool.exec
+                                     |> Minelixir.Tools.System.exec
                                      |> String.trim
                                      |> String.replace(~r/\s+/, " ")
                                      |> String.split(" ")

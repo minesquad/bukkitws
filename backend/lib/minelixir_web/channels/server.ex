@@ -1,4 +1,4 @@
-defmodule MinelixirWeb.Channels.ServerChannel do
+defmodule MinelixirWeb.Channels.Server do
 
   use Phoenix.Channel
 
