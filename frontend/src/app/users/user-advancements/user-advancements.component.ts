@@ -19,7 +19,6 @@ export class UserAdvancementsComponent implements OnInit {
 
   ngOnInit() {
     this._advancements = this.route.snapshot.data['advancements'];
-    console.log('this._advancements', this._advancements);
   }
 
 }

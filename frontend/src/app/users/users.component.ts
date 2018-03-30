@@ -20,7 +20,6 @@ export class UsersComponent implements OnInit {
 
   ngOnInit() {
     this._users = this.route.snapshot.data['users'];
-    console.log('this._users', this._users);
   }
 
 }
