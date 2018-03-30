@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import { WebsocketService } from "../shared/websocket.service";
-import {Subscription} from "rxjs/Subscription";
+import { WebsocketService } from '../shared/websocket.service';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'mine-server-stats',
@@ -18,7 +18,7 @@ export class ServerStatsComponent implements OnInit, OnDestroy {
     await this.socket.join('server');
     this.subscription = this.socket.on('server', 'stats').subscribe((stats: any) => {
       this.stats = stats;
-    })
+    });
   }
 
   ngOnDestroy() {
