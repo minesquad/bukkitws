@@ -33,6 +33,15 @@ defmodule Minelixir.Tools.User do
           :ok,
           data
           |> Poison.decode!()
+          |> Map.to_list()
+          |> Enum.map(
+               fn {key, value} ->
+                 %{
+                   key: key,
+                   value: value
+                 }
+               end
+             )
         }
       _ ->
         {:error, %{}}
@@ -56,6 +65,18 @@ defmodule Minelixir.Tools.User do
           :ok,
           data
           |> Poison.decode!()
+          |> Map.to_list()
+          |> Enum.map(
+               fn {key, value} ->
+                 %{
+                   key: key,
+                   done: value
+                         |> Map.get("done"),
+                   criteria: value
+                             |> Map.get("criteria")
+                 }
+               end
+             )
         }
       _ ->
         {:error, %{}}

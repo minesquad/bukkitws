@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class UserStatsComponent implements OnInit {
 
-  private _stats: any;
+  private _stats: UserModel[];
 
   get stats(): any {
     return this._stats;

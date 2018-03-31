@@ -14,6 +14,8 @@ export class UserAdvancementsResolver implements Resolve<UserModel[]> {
           state: RouterStateSnapshot): Observable<UserModel[]> | Promise<UserModel[]> | UserModel[] {
     return this.socket.push('users', 'advancements', {
       'uuid': route.params.uuid
+    }).then((response: any) => {
+      return response.advancements;
     });
   }
 }

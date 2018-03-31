@@ -1,1 +1,5 @@
-<pre>{{ stats | json }}</pre>
+<mat-list *ngIf="stats">
+    <mat-list-item *ngFor="let stat of stats">
+        {{ stat['key'] }} - {{ stat['value'] }}
+    </mat-list-item>
+</mat-list>
