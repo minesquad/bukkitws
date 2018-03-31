@@ -18,7 +18,8 @@ export class ServerStatsComponent implements OnInit, OnDestroy {
   async ngOnInit() {
     await this.socket.join('server');
     this.subscription = this.socket.on('server', 'stats').subscribe((stats: any) => {
-      this.stats = stats;
+      this.stats = stats.system;
+      console.log(stats.minecraft);
     });
   }
 

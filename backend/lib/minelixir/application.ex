@@ -14,7 +14,10 @@ defmodule Minelixir.Application do
       supervisor(MinelixirWeb.Endpoint, []),
       # Start your own worker by calling: Minelixir.Worker.start_link(arg1, arg2, arg3)
       # worker(Minelixir.Worker, [arg1, arg2, arg3]),
+      worker(Minelixir.Minecraft.Server, []),
       worker(MinelixirWeb.Workers.ServerStats, []),
+      worker(Minelixir.RabbitMQ.Publisher, []),
+      worker(Minelixir.RabbitMQ.Listener, []),
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
