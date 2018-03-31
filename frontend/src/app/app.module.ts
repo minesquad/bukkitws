@@ -26,8 +26,8 @@ import { HomepageComponent } from './homepage/homepage.component';
   ],
   imports: [
     BrowserAnimationsModule,
-    UiModule,
     ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
+    UiModule,
     UsersModule,
     AppRoutingModule,
   ],

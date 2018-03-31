@@ -1,5 +1,43 @@
-<mat-toolbar color="primary">
-    <span>MinElixir</span>
-</mat-toolbar>
-<mine-server-stats></mine-server-stats>
-<router-outlet></router-outlet>
+<mat-sidenav-container>
+    <mat-sidenav mode="over" #left>
+        <mat-toolbar color="accent">
+            <span>Меню</span>
+        </mat-toolbar>
+        <mat-nav-list>
+            <a mat-list-item
+               routerLink="/"
+               (click)="left.toggle()">
+                <mat-icon matListIcon>place</mat-icon>
+                Карта
+            </a>
+            <a mat-list-item
+               routerLink="/users"
+               (click)="left.toggle()">
+                <mat-icon matListIcon>people</mat-icon>
+                Игроки
+            </a>
+            <a mat-list-item
+               routerLink="/top"
+               (click)="left.toggle()">
+                <mat-icon matListIcon>insert_chart</mat-icon>
+                Рейтинги
+            </a>
+            <a mat-list-item
+               routerLink="/about"
+               (click)="left.toggle()">
+                <mat-icon matListIcon>help</mat-icon>
+                О проекте
+            </a>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-toolbar color="primary">
+            <button mat-icon-button (click)="left.toggle()">
+                <mat-icon>menu</mat-icon>
+            </button>
+            <span>MinElixir</span>
+        </mat-toolbar>
+        <mine-server-stats></mine-server-stats>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
