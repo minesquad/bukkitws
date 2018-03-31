@@ -14,11 +14,13 @@ import { ScriptLoaderService } from './shared/script-loader.service';
 import { MapComponent } from './map/map.component';
 import { UsersModule } from './users/users.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { HomepageComponent } from './homepage/homepage.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ServerStatsComponent,
+    HomepageComponent,
     MapComponent,
     PageNotFoundComponent,
   ],

@@ -1,7 +1,6 @@
-import { Component, ElementRef, OnDestroy, OnInit, Sanitizer, ViewChild } from '@angular/core';
-import { ScriptLoaderService } from '../shared/script-loader.service';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-
+import { SafeResourceUrl } from '@angular/platform-browser/src/security/dom_sanitization_service';
 
 @Component({
   selector: 'mine-map',
@@ -11,58 +10,19 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class MapComponent implements OnInit, OnDestroy {
 
   @ViewChild('map')
-  private container: ElementRef;
+  private map: ElementRef;
+  private frame: SafeResourceUrl;
 
-  private map: any;
-
-  constructor(private scriptLoader: ScriptLoaderService) {
+  constructor(private sanitizer: DomSanitizer) {
+    const l = window.location;
+    this.frame = this.sanitizer.bypassSecurityTrustResourceUrl(`${l.protocol}//${l.hostname}:8123/`);
   }
 
-  async ngOnInit() {
-
-    const host = 'http://localhost:8123/';
-    const w: any = <any>window;
-
-    w.dynmapversion = '2.5-Dev201706100401';
-
-    await this.scriptLoader.load('/assets/map/js/jquery-1.11.0.js?_=2.5-Dev201706100401');
-    await this.scriptLoader.load('/assets/map/js/leaflet.js?_=2.5-Dev201706100401');
-    await this.scriptLoader.load('/assets/map/js/custommarker.js?_=2.5-Dev201706100401');
-    await this.scriptLoader.load('/assets/map/js/dynmaputils.js?_=2.5-Dev201706100401');
-    await this.scriptLoader.load('/assets/map/js/jquery.json.js?_=2.5-Dev201706100401');
-    await this.scriptLoader.load('/assets/map/js/jquery.mousewheel.js?_=2.5-Dev201706100401');
-    await this.scriptLoader.load('/assets/map/js/minecraft.js?_=2.5-Dev201706100401');
-    await this.scriptLoader.load('/assets/map/js/map.js?_=2.5-Dev201706100401');
-    await this.scriptLoader.load('/assets/map/js/hdmap.js?_=2.5-Dev201706100401');
-
-    w.dynmap = this.map = new w.DynMap({
-      container: w.$(this.container.nativeElement),
-      url: {
-        configuration: host + 'up/configuration',
-        update: host + 'up/world/{world}/{timestamp}',
-        sendmessage: host + 'up/sendmessage',
-        login: host + 'up/login',
-        register: host + 'up/register',
-        tiles: host + 'tiles/',
-        markers: host + 'tiles/'
-      }
-    });
-
-    const _loadjs: any = w.loadjs;
-    const _loadcss: any = w.loadcss;
-
-    w.loadjs = function (url: any, cb: any) {
-      _loadjs('/assets/map/' + url, cb);
-    };
-
-    w.loadcss = function (url: any, cb: any) {
-      _loadcss('/assets/map/css' + url, cb);
-    };
-
-    console.log(this.map);
+  ngOnInit() {
   }
 
   ngOnDestroy() {
   }
+
 
 }
