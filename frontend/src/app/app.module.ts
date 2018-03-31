@@ -24,8 +24,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
   ],
   imports: [
     BrowserAnimationsModule,
-    UiModule,
     ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
+    UiModule,
     UsersModule,
     AppRoutingModule,
   ],
