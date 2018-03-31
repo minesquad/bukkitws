@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { UserAdvancementModel } from '../shared/user-advancement.model';
 
 @Component({
   selector: 'mine-user-advancements',
@@ -8,9 +9,9 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class UserAdvancementsComponent implements OnInit {
 
-  private _advancements: any;
+  private _advancements: UserAdvancementModel[];
 
-  get advancements(): any {
+  get advancements(): UserAdvancementModel[] {
     return this._advancements;
   }
 

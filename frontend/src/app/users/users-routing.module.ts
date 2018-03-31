@@ -16,7 +16,7 @@ const routes: Routes = [
     },
   },
   {
-    path: 'users/:uuid',
+    path: 'users/:uuid/stats',
     component: UserStatsComponent,
     resolve: {
       stats: UserStatsResolver

@@ -3,19 +3,20 @@ import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/r
 import { Observable } from "rxjs/Observable";
 import { UserModel } from './user.model';
 import { WebsocketService } from '../../shared/websocket.service';
+import { UserAdvancementModel } from './user-advancement.model';
 
 @Injectable()
-export class UserAdvancementsResolver implements Resolve<UserModel[]> {
+export class UserAdvancementsResolver implements Resolve<UserAdvancementModel[]> {
 
   constructor(private socket: WebsocketService) {
   }
 
   resolve(route: ActivatedRouteSnapshot,
-          state: RouterStateSnapshot): Observable<UserModel[]> | Promise<UserModel[]> | UserModel[] {
+          state: RouterStateSnapshot): Observable<UserAdvancementModel[]> | Promise<UserAdvancementModel[]> | UserAdvancementModel[] {
     return this.socket.push('users', 'advancements', {
       'uuid': route.params.uuid
     }).then((response: any) => {
-      return response.advancements;
+      return <UserAdvancementModel[]>(response.advancements);
     });
   }
 }

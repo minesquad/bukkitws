@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UserModel } from '../shared/user.model';
 import { ActivatedRoute } from '@angular/router';
+import { UserStatModel } from '../shared/user-stat.model';
 
 @Component({
   selector: 'mine-user-stats',
@@ -9,9 +9,9 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class UserStatsComponent implements OnInit {
 
-  private _stats: UserModel[];
+  private _stats: UserStatModel[];
 
-  get stats(): any {
+  get stats(): UserStatModel[] {
     return this._stats;
   }
 

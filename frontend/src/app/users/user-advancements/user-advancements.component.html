@@ -1,1 +1,5 @@
-<pre>{{ advancements | json }}</pre>
+<mat-list *ngIf="advancements">
+    <mat-list-item *ngFor="let advancement of advancements">
+        {{ advancement.key }} - {{ advancement.done }}
+    </mat-list-item>
+</mat-list>

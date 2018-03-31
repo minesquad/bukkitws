@@ -13,20 +13,21 @@ import { ServerStatsComponent } from './server-stats/server-stats.component';
 import { ScriptLoaderService } from './shared/script-loader.service';
 import { MapComponent } from './map/map.component';
 import { UsersModule } from './users/users.module';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ServerStatsComponent,
     MapComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserAnimationsModule,
     UiModule,
-    AppRoutingModule,
     ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
     UsersModule,
-    UiModule,
+    AppRoutingModule,
   ],
   providers: [
     WebsocketService,
