@@ -9,21 +9,25 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class MinecraftStatsComponent implements OnInit, OnDestroy {
 
-  private subscription: Subscription;
-  private stats: any;
+  private _subscription: Subscription;
+  private _stats: any;
+
+  get stats(): any {
+    return this._stats;
+  }
 
   constructor(private socket: WebsocketService) {
   }
 
   async ngOnInit() {
     await this.socket.join('minecraft');
-    this.subscription = this.socket.on('minecraft', 'stats').subscribe((stats: any) => {
-      this.stats = stats;
+    this._subscription = this.socket.on('minecraft', 'stats').subscribe((stats: any) => {
+      this._stats = stats;
     });
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this._subscription.unsubscribe();
   }
 
 }
