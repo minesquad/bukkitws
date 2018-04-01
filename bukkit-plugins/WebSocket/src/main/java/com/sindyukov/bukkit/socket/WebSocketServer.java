@@ -1,28 +1,20 @@
 package com.sindyukov.bukkit.socket;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.lang.reflect.Type;
 import java.math.BigInteger;
 import java.net.InetSocketAddress;
-import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.sindyukov.bukkit.socket.websocket.Channel;
 import com.sindyukov.bukkit.socket.websocket.ChannelEvent;
 import org.java_websocket.WebSocket;
-import org.java_websocket.WebSocketImpl;
 import org.java_websocket.handshake.ClientHandshake;
 
+/**
+ * WebSocket сервер
+ */
 public class WebSocketServer extends org.java_websocket.server.WebSocketServer {
 
     private final WebSocketPlugin plugin;
@@ -30,35 +22,55 @@ public class WebSocketServer extends org.java_websocket.server.WebSocketServer {
 
     private HashMap<String, Channel> channels = new HashMap<>();
 
-    public WebSocketServer(WebSocketPlugin instance, int port ) throws UnknownHostException {
-        super( new InetSocketAddress(  port ) );
+    WebSocketServer(WebSocketPlugin instance, int port) {
+        super(new InetSocketAddress(port));
         plugin = instance;
     }
 
-    public WebSocketServer(WebSocketPlugin instance, InetSocketAddress address ) {
-        super( address );
+    public WebSocketServer(WebSocketPlugin instance, InetSocketAddress address) {
+        super(address);
         plugin = instance;
     }
 
-
-    public void registerChannel(Channel channel) {
+    /**
+     * Регистрация канала
+     *
+     * @param channel Channel
+     */
+    void registerChannel(Channel channel) {
         channels.put(channel.getName(), channel);
     }
 
 
+    /**
+     * @param conn      WebSocket
+     * @param handshake ClientHandshake
+     */
     @Override
-    public void onOpen( WebSocket conn, ClientHandshake handshake ) {
-        System.out.println( conn.getRemoteSocketAddress().getAddress().getHostAddress() + " entered the room!" );
+    public void onOpen(WebSocket conn, ClientHandshake handshake) {
+        System.out.println(conn.getRemoteSocketAddress().getAddress().getHostAddress() + " entered the room!");
     }
 
+    /**
+     * @param conn   WebSocket
+     * @param code   int
+     * @param reason String
+     * @param remote boolean
+     */
     @Override
-    public void onClose( WebSocket conn, int code, String reason, boolean remote ) {
-        broadcast( conn + " has left the room!" );
-        System.out.println( conn + " has left the room!" );
+    public void onClose(WebSocket conn, int code, String reason, boolean remote) {
+        broadcast(conn + " has left the room!");
+        System.out.println(conn + " has left the room!");
     }
 
+    /**
+     * Событие получения сообщения
+     *
+     * @param conn    WebSocket
+     * @param message String
+     */
     @Override
-    public void onMessage( WebSocket conn, String message ) {
+    public void onMessage(WebSocket conn, String message) {
         try {
             JsonObject mainObject = parser.parse(message).getAsJsonObject();
 
@@ -66,7 +78,7 @@ public class WebSocketServer extends org.java_websocket.server.WebSocketServer {
             String channelName = mainObject.get("channel").getAsString();
             String event = mainObject.get("event").getAsString();
             JsonObject data;
-            if ( mainObject.has("data")) {
+            if (mainObject.has("data")) {
                 data = mainObject.get("data").getAsJsonObject();
             } else {
                 data = new JsonObject();
@@ -78,19 +90,29 @@ public class WebSocketServer extends org.java_websocket.server.WebSocketServer {
         }
     }
 
+    /**
+     * Событие получения сообщения
+     *
+     * @param conn    WebSocket
+     * @param message ByteBuffer
+     */
     @Override
-    public void onMessage( WebSocket conn, ByteBuffer message ) {
+    public void onMessage(WebSocket conn, ByteBuffer message) {
         conn.close();
     }
 
+    /**
+     * @param conn WebSocket
+     * @param ex   Exception
+     */
     @Override
-    public void onError( WebSocket conn, Exception ex ) {
+    public void onError(WebSocket conn, Exception ex) {
         ex.printStackTrace();
-        if( conn != null ) {
-            // some errors like port binding failed may not be assignable to a specific websocket
-        }
     }
 
+    /**
+     * Событие запуска сервара
+     */
     @Override
     public void onStart() {
         System.out.println("Server started!");

@@ -1,55 +1,75 @@
 package com.sindyukov.bukkit.socket;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeoutException;
 
+import com.sindyukov.bukkit.socket.channels.ServerChannel;
 import com.sindyukov.bukkit.socket.channels.TestChannel;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
- * Sample plugin for Bukkit
- *
- * @author Dinnerbone
+ * Плагин WebSocket сервера
  */
 public class WebSocketPlugin extends JavaPlugin {
 
     private final PlayerListener playerListener = new PlayerListener(this);
-    private WebSocketServer chat;
+    private WebSocketServer socket;
+    private TestChannel testChannel = new TestChannel();
+    private ServerChannel serverChannel = new ServerChannel();
 
-    public WebSocketPlugin() throws IOException, TimeoutException {
-        chat = new WebSocketServer(this, 9999);
-        chat.registerChannel(new TestChannel());
+    /**
+     * Конструктор
+     *
+     * @throws IOException
+     */
+    public WebSocketPlugin() throws IOException {
+        socket = new WebSocketServer(this, 9999);
+        socket.registerChannel(testChannel);
+        socket.registerChannel(serverChannel);
     }
 
+    /**
+     * Активация плагина
+     */
     @Override
     public void onEnable() {
+
+        // Регистрируем PlayerListener
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(playerListener, this);
 
+        // Запускаем WebSocket сервер
         Executors.newSingleThreadExecutor().execute(() -> {
-            chat.run();
+            socket.run();
             getLogger().info("run ChatServer");
         });
     }
 
+    /**
+     * Деактивация плагина
+     */
     @Override
     public void onDisable() {
+
+        // Останавливаем WebSocket сервер
         try {
-            chat.stop();
+            socket.stop();
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }
 
-    public void addOnlinePlayer(Player player) {
-        getLogger().info(player.getName() + " join");
-//        chat.broadcast(player.getName() + " join");
+    void addOnlinePlayer(Player player) {
+        Collection<? extends Player> onlinePlayers = Bukkit.getOnlinePlayers();
+        serverChannel.broadcast(onlinePlayers.toString());
     }
 
-    public void removeOnlinePlayer(Player player) {
-//        chat.broadcast(player.getName() + " leave");
+    void removeOnlinePlayer(Player player) {
+        Collection<? extends Player> onlinePlayers = Bukkit.getOnlinePlayers();
+        serverChannel.broadcast(onlinePlayers.toString());
     }
 }

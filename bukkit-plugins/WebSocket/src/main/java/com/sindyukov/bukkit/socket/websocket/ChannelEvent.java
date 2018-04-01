@@ -6,6 +6,7 @@ import org.java_websocket.WebSocket;
 import java.math.BigInteger;
 
 public class ChannelEvent {
+
     private final BigInteger id;
     private final String name;
     private final WebSocket connection;

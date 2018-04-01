@@ -5,22 +5,29 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-/**
- * Handle events for all Player related events
- * @author Dinnerbone
- */
 public class PlayerListener implements Listener {
+
     private final WebSocketPlugin plugin;
 
-    public PlayerListener(WebSocketPlugin instance) {
+    PlayerListener(WebSocketPlugin instance) {
         plugin = instance;
     }
 
+    /**
+     * Игрок зашел в игру
+     *
+     * @param event PlayerJoinEvent
+     */
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         plugin.addOnlinePlayer(event.getPlayer());
     }
 
+    /**
+     * Игрок вышел из игры
+     *
+     * @param event PlayerQuitEvent
+     */
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
         plugin.removeOnlinePlayer(event.getPlayer());

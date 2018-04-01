@@ -3,6 +3,7 @@ package com.sindyukov.bukkit.socket.websocket.errors;
 import com.google.gson.JsonObject;
 
 public class EventNotFoundErrorResponse extends ErrorResponse {
+
     private String channel;
     private String event;
 
