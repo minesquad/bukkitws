@@ -16,6 +16,7 @@ import { UsersModule } from './users/users.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { MinecraftStatsComponent } from './minecraft-stats/minecraft-stats.component';
+import { MinecraftModule } from './minecraft/minecraft.module';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import { MinecraftStatsComponent } from './minecraft-stats/minecraft-stats.compo
     MinecraftStatsComponent,
     HomepageComponent,
     MapComponent,
-    PageNotFoundComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -32,6 +33,7 @@ import { MinecraftStatsComponent } from './minecraft-stats/minecraft-stats.compo
     UiModule,
     UsersModule,
     AppRoutingModule,
+    MinecraftModule,
   ],
   providers: [
     WebsocketService,

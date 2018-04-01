@@ -56,7 +56,10 @@ defmodule Minelixir.Tools.System do
       top = "top -l 1 | grep -E \"^CPU|^Phys\""
             |> Minelixir.Tools.System.exec
 
-      [_, used, wired, unused] = Regex.run(~r/PhysMem\:\s(\d+)M\sused\s\((\d+)M\swired\),\s(\d+)M\sunused\..*?/, top)
+      [_, used, wired, unused] = case Regex.run(~r/PhysMem\:\s(\d+)M\sused\s\((\d+)M\swired\),\s(\d+)M\sunused\..*?/, top) do
+        [phys, used, wired, unused] -> [phys, used, wired, unused]
+        _ -> [0, 0, 0, 0]
+      end
 
       used = elem(Integer.parse(used), 0)
       wired = elem(Integer.parse(wired), 0)
