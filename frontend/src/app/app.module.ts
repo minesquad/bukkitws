@@ -15,6 +15,8 @@ import { MapComponent } from './map/map.component';
 import { UsersModule } from './users/users.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HomepageComponent } from './homepage/homepage.component';
+import { TopComponent } from './top/top.component';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import { HomepageComponent } from './homepage/homepage.component';
     HomepageComponent,
     MapComponent,
     PageNotFoundComponent,
+    TopComponent,
+    AboutComponent,
   ],
   imports: [
     BrowserAnimationsModule,
