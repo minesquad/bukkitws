@@ -17,6 +17,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { HomepageComponent } from './homepage/homepage.component';
 import { MinecraftStatsComponent } from './minecraft-stats/minecraft-stats.component';
 import { MinecraftModule } from './minecraft/minecraft.module';
+import { TopComponent } from './top/top.component';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,10 @@ import { MinecraftModule } from './minecraft/minecraft.module';
     MinecraftStatsComponent,
     HomepageComponent,
     MapComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    PageNotFoundComponent,
+    TopComponent,
+    AboutComponent,
   ],
   imports: [
     BrowserAnimationsModule,
