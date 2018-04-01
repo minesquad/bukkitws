@@ -6,11 +6,17 @@
 </head>
 <body>
 
+<button onclick="join()">join</button>
+<button onclick="test()">test</button>
+<button onclick="leave()">leave</button>
+
 
 <script>
     var socket = new WebSocket("ws://127.0.0.1:9999/");
+
     socket.onopen = function() {
         console.log("Соединение установлено.");
+
     };
 
     socket.onclose = function(event) {
@@ -30,6 +36,34 @@
         console.log("Ошибка " + error.message);
     };
 
+    var counter = 0;
+
+    function join() {
+        socket.send(JSON.stringify({
+            id: ++counter,
+            channel: "test",
+            event: "join"
+        }));
+    }
+
+    function test() {
+        socket.send(JSON.stringify({
+            id: ++counter,
+            channel: "test",
+            event: "test",
+            data: {
+                time: new Date()
+            }
+        }));
+    }
+
+    function leave() {
+        socket.send(JSON.stringify({
+            id: ++counter,
+            channel: "test",
+            event: "leave"
+        }));
+    }
 </script>
 </body>
 </html>
