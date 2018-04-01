@@ -1,8 +1,8 @@
-defmodule MinelixirWeb.Workers.ServerStats do
+defmodule MinelixirWeb.Workers.MinecraftStats do
   use GenServer
 
   alias MinelixirWeb.Endpoint
-  alias Minelixir.Tools.System
+  alias Minelixir.Minecraft.Server, as: MinecraftServer
 
   def start_link() do
     GenServer.start_link(__MODULE__, nil, name: __MODULE__)
@@ -32,7 +32,7 @@ defmodule MinelixirWeb.Workers.ServerStats do
   end
 
   def work(state) do
-    Endpoint.broadcast! "server", "stats", System.summary()
+    Endpoint.broadcast! "minecraft", "stats", MinecraftServer.status()
     state
   end
 
