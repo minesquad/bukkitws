@@ -1,15 +1,28 @@
-<mat-list *ngIf="users">
-    <mat-list-item *ngFor="let user of users">
-        {{ user.name }}
-        <button mat-icon-button
-                color="accent"
-                [routerLink]="'/users/' + user['uuid'] + '/stats'">
-            <mat-icon>storage</mat-icon>
-        </button>
-        <button mat-icon-button
-                color="warn"
-                [routerLink]="'/users/' + user['uuid'] + '/advancements'">
-            <mat-icon>info</mat-icon>
-        </button>
-    </mat-list-item>
-</mat-list>
+<h1>Игроки</h1>
+<mat-divider></mat-divider>
+<mat-table #table *ngIf="users" [dataSource]="dataSource">
+    <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef>Никнейм</mat-header-cell>
+        <mat-cell *matCellDef="let user">{{user.name}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="stats">
+        <mat-header-cell *matHeaderCellDef>Статистика</mat-header-cell>
+        <mat-cell *matCellDef="let user">
+            <button mat-raised-button
+                    color="primary"
+                    [routerLink]="'/users/' + user.uuid + '/stats'">Посмотреть
+            </button>
+        </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="advancements">
+        <mat-header-cell *matHeaderCellDef>Достижения</mat-header-cell>
+        <mat-cell *matCellDef="let user">
+            <button mat-raised-button
+                    color="accent"
+                    [routerLink]="'/users/' + user.uuid + '/advancements'">Посмотреть
+            </button>
+        </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
