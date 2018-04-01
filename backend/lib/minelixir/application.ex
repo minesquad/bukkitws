@@ -16,6 +16,7 @@ defmodule Minelixir.Application do
       # worker(Minelixir.Worker, [arg1, arg2, arg3]),
       worker(Minelixir.Minecraft.Server, []),
       worker(MinelixirWeb.Workers.ServerStats, []),
+      worker(MinelixirWeb.Workers.MinecraftStats, []),
       worker(Minelixir.RabbitMQ.Publisher, []),
       worker(Minelixir.RabbitMQ.Listener, []),
     ]

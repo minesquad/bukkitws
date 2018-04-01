@@ -3,11 +3,11 @@ import { WebsocketService } from '../shared/websocket.service';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
-  selector: 'mine-server-stats',
-  templateUrl: './server-stats.component.html',
-  styleUrls: ['./server-stats.component.scss']
+  selector: 'mine-minecraft-stats',
+  templateUrl: './minecraft-stats.component.html',
+  styleUrls: ['./minecraft-stats.component.scss']
 })
-export class ServerStatsComponent implements OnInit, OnDestroy {
+export class MinecraftStatsComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription;
   private stats: any;
@@ -16,8 +16,8 @@ export class ServerStatsComponent implements OnInit, OnDestroy {
   }
 
   async ngOnInit() {
-    await this.socket.join('server');
-    this.subscription = this.socket.on('server', 'stats').subscribe((stats: any) => {
+    await this.socket.join('minecraft');
+    this.subscription = this.socket.on('minecraft', 'stats').subscribe((stats: any) => {
       this.stats = stats;
     });
   }
