@@ -1,17 +1,14 @@
 package com.github.minesquad.bukkit;
 
 import java.io.IOException;
-import java.util.Collection;
 import java.util.Timer;
 import java.util.concurrent.Executors;
 
-import com.google.gson.JsonObject;
+import com.github.minesquad.bukkit.listeners.PlayerListener;
 import com.github.minesquad.bukkit.channels.ServerChannel;
 import com.github.minesquad.bukkit.channels.SystemChannel;
 import com.github.minesquad.bukkit.channels.TestChannel;
 import com.github.minesquad.bukkit.workers.SystemWorker;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -27,7 +24,7 @@ public class WebSocketPlugin extends JavaPlugin {
     /**
      * Конструктор
      */
-    public WebSocketPlugin()  {
+    public WebSocketPlugin() {
         socket = new WebSocketServer(this, 9999);
         socket.registerChannel(new TestChannel());
         socket.registerChannel(new ServerChannel());
@@ -70,22 +67,5 @@ public class WebSocketPlugin extends JavaPlugin {
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
-    }
-
-    void addOnlinePlayer(Player player) {
-        this.broadcastOnlineEvent("join");
-    }
-
-    void removeOnlinePlayer(Player player) {
-        this.broadcastOnlineEvent("leave");
-    }
-
-    private void broadcastOnlineEvent(String event) {
-        Collection<? extends Player> onlinePlayers = Bukkit.getOnlinePlayers();
-
-        JsonObject data = new JsonObject();
-        data.addProperty("online", onlinePlayers.toString());
-
-        socket.broadcast("server", event, data);
     }
 }
