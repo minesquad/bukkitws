@@ -50,7 +50,7 @@ public class WebSocketPlugin extends JavaPlugin {
         // Запускаем WebSocket сервер
         Executors.newSingleThreadExecutor().execute(() -> {
             Timer timer = new Timer(true);
-            timer.scheduleAtFixedRate(systemWorker, 0, 1000);
+            timer.scheduleAtFixedRate(systemWorker, 0, 5000);
         });
 
     }
