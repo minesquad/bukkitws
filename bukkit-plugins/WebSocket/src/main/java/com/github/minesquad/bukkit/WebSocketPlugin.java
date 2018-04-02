@@ -4,9 +4,10 @@ import java.io.IOException;
 import java.util.concurrent.Executors;
 
 import com.github.minesquad.bukkit.listeners.PlayerListener;
-import com.github.minesquad.bukkit.channels.ServerChannel;
+import com.github.minesquad.bukkit.channels.MinecraftChannel;
 import com.github.minesquad.bukkit.channels.SystemChannel;
 import com.github.minesquad.bukkit.channels.TestChannel;
+import com.github.minesquad.bukkit.system.SystemStatus;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -17,6 +18,7 @@ public class WebSocketPlugin extends JavaPlugin {
 
     private final PlayerListener playerListener = new PlayerListener(this);
     public WebSocketServer socket;
+    public SystemStatus system = new SystemStatus();
 
     /**
      * Конструктор
@@ -24,8 +26,8 @@ public class WebSocketPlugin extends JavaPlugin {
     public WebSocketPlugin() {
         socket = new WebSocketServer(this, 9999);
         socket.registerChannel(new TestChannel());
-        socket.registerChannel(new ServerChannel());
-        socket.registerChannel(new SystemChannel());
+        socket.registerChannel(new MinecraftChannel());
+        socket.registerChannel(new SystemChannel(this));
     }
 
     /**

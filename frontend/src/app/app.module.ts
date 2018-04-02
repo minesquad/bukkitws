@@ -19,9 +19,12 @@ import { MinecraftModule } from './minecraft/minecraft.module';
 import { TopComponent } from './top/top.component';
 import { AboutComponent } from './about/about.component';
 import { SystemStatusComponent } from './system-status/system-status.component';
+import { MainFrameComponent } from './main-frame/main-frame-component';
+import { AppResolver } from './app.resolver';
 
 @NgModule({
   declarations: [
+    MainFrameComponent,
     AppComponent,
     SystemStatusComponent,
     MinecraftStatsComponent,
@@ -43,11 +46,9 @@ import { SystemStatusComponent } from './system-status/system-status.component';
   providers: [
     WebsocketService,
     ScriptLoaderService,
+    AppResolver,
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(private socket: WebsocketService) {
-    this.socket.connect();
-  }
 }
