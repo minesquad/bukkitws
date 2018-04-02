@@ -118,4 +118,16 @@ public class WebSocketServer extends org.java_websocket.server.WebSocketServer {
         System.out.println("Server started!");
     }
 
+    public void broadcast(String channelName, String event) {
+        broadcast(channelName, event, new JsonObject());
+    }
+
+    public void broadcast(String channelName, String event, JsonObject data) {
+        if (!channels.containsKey(channelName)) {
+            throw new RuntimeException("No such channel");
+        }
+
+        Channel channel = channels.get(channelName);
+        channel.broadcast(event, data);
+    }
 }

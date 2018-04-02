@@ -7,6 +7,7 @@
 <body>
 
 <button onclick="joinToServerChannel()">joinToServerChannel</button>
+<button onclick="joinToSystemChannel()">joinToSystemChannel</button>
 <button onclick="join()">join</button>
 <button onclick="test()">test</button>
 <button onclick="leave()">leave</button>
@@ -46,6 +47,15 @@
             event: "join"
         }));
     }
+
+    function joinToSystemChannel() {
+        socket.send(JSON.stringify({
+            id: ++counter,
+            channel: "system",
+            event: "join"
+        }));
+    }
+
 
     function join() {
         socket.send(JSON.stringify({

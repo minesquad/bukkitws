@@ -38,13 +38,18 @@ abstract public class Channel {
         return connections.containsKey(conn.toString());
     }
 
-    public void broadcast(JsonObject msg) {
-        broadcast(msg.toString());
+    public void broadcast(String event) {
+        broadcast(event, new JsonObject());
     }
 
-    public void broadcast(String msg) {
+    public void broadcast(String event, JsonObject data) {
+        JsonObject message = new JsonObject();
+        message.addProperty("channel", getName());
+        message.addProperty("event", event);
+        message.add("data", data);
+
         connections.forEach((String key, WebSocket socket) -> {
-            socket.send(msg);
+            socket.send(message.toString());
         });
     }
 

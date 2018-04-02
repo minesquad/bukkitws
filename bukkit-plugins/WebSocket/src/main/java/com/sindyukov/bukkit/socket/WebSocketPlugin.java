@@ -2,10 +2,14 @@ package com.sindyukov.bukkit.socket;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Timer;
 import java.util.concurrent.Executors;
 
+import com.google.gson.JsonObject;
 import com.sindyukov.bukkit.socket.channels.ServerChannel;
+import com.sindyukov.bukkit.socket.channels.SystemChannel;
 import com.sindyukov.bukkit.socket.channels.TestChannel;
+import com.sindyukov.bukkit.socket.workers.SystemWorker;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
@@ -17,19 +21,17 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class WebSocketPlugin extends JavaPlugin {
 
     private final PlayerListener playerListener = new PlayerListener(this);
-    private WebSocketServer socket;
-    private TestChannel testChannel = new TestChannel();
-    private ServerChannel serverChannel = new ServerChannel();
+    public WebSocketServer socket;
+    private SystemWorker systemWorker = new SystemWorker(this);
 
     /**
      * Конструктор
-     *
-     * @throws IOException
      */
-    public WebSocketPlugin() throws IOException {
+    public WebSocketPlugin()  {
         socket = new WebSocketServer(this, 9999);
-        socket.registerChannel(testChannel);
-        socket.registerChannel(serverChannel);
+        socket.registerChannel(new TestChannel());
+        socket.registerChannel(new ServerChannel());
+        socket.registerChannel(new SystemChannel());
     }
 
     /**
@@ -47,6 +49,13 @@ public class WebSocketPlugin extends JavaPlugin {
             socket.run();
             getLogger().info("run ChatServer");
         });
+
+        // Запускаем WebSocket сервер
+        Executors.newSingleThreadExecutor().execute(() -> {
+            Timer timer = new Timer(true);
+            timer.scheduleAtFixedRate(systemWorker, 0, 1000);
+        });
+
     }
 
     /**
@@ -64,12 +73,19 @@ public class WebSocketPlugin extends JavaPlugin {
     }
 
     void addOnlinePlayer(Player player) {
-        Collection<? extends Player> onlinePlayers = Bukkit.getOnlinePlayers();
-        serverChannel.broadcast(onlinePlayers.toString());
+        this.broadcastOnlineEvent("join");
     }
 
     void removeOnlinePlayer(Player player) {
+        this.broadcastOnlineEvent("leave");
+    }
+
+    private void broadcastOnlineEvent(String event) {
         Collection<? extends Player> onlinePlayers = Bukkit.getOnlinePlayers();
-        serverChannel.broadcast(onlinePlayers.toString());
+
+        JsonObject data = new JsonObject();
+        data.addProperty("online", onlinePlayers.toString());
+
+        socket.broadcast("server", event, data);
     }
 }
