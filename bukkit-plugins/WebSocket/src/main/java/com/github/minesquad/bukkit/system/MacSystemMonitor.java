@@ -1,4 +1,4 @@
-package com.sindyukov.bukkit.socket.system;
+package com.github.minesquad.bukkit.system;
 
 public class MacSystemMonitor extends UnixSystemMonitor {
 

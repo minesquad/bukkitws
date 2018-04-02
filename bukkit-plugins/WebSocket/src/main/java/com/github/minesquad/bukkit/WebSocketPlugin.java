@@ -1,4 +1,4 @@
-package com.sindyukov.bukkit.socket;
+package com.github.minesquad.bukkit;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -6,10 +6,10 @@ import java.util.Timer;
 import java.util.concurrent.Executors;
 
 import com.google.gson.JsonObject;
-import com.sindyukov.bukkit.socket.channels.ServerChannel;
-import com.sindyukov.bukkit.socket.channels.SystemChannel;
-import com.sindyukov.bukkit.socket.channels.TestChannel;
-import com.sindyukov.bukkit.socket.workers.SystemWorker;
+import com.github.minesquad.bukkit.channels.ServerChannel;
+import com.github.minesquad.bukkit.channels.SystemChannel;
+import com.github.minesquad.bukkit.channels.TestChannel;
+import com.github.minesquad.bukkit.workers.SystemWorker;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;

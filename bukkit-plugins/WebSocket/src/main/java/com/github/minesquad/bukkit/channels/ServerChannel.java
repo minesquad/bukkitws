@@ -1,6 +1,6 @@
-package com.sindyukov.bukkit.socket.channels;
+package com.github.minesquad.bukkit.channels;
 
-import com.sindyukov.bukkit.socket.websocket.Channel;
+import com.github.minesquad.bukkit.websocket.Channel;
 
 public class ServerChannel extends Channel {
 

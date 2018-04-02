@@ -1,4 +1,4 @@
-package com.sindyukov.bukkit.socket;
+package com.github.minesquad.bukkit;
 
 import java.math.BigInteger;
 import java.net.InetSocketAddress;
@@ -7,8 +7,8 @@ import java.util.HashMap;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.sindyukov.bukkit.socket.websocket.Channel;
-import com.sindyukov.bukkit.socket.websocket.ChannelEvent;
+import com.github.minesquad.bukkit.websocket.Channel;
+import com.github.minesquad.bukkit.websocket.ChannelEvent;
 import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
 

@@ -1,4 +1,4 @@
-package com.sindyukov.bukkit.socket.websocket.errors;
+package com.github.minesquad.bukkit.websocket.errors;
 
 import com.google.gson.JsonObject;
 

@@ -1,9 +1,9 @@
-package com.sindyukov.bukkit.socket.websocket;
+package com.github.minesquad.bukkit.websocket;
 
+import com.github.minesquad.bukkit.websocket.errors.NotJoinedErrorResponse;
 import com.google.gson.JsonObject;
-import com.sindyukov.bukkit.socket.websocket.errors.EventNotFoundErrorResponse;
-import com.sindyukov.bukkit.socket.websocket.errors.InternalServerErrorResponse;
-import com.sindyukov.bukkit.socket.websocket.errors.NotJoinedErrorResponse;
+import com.github.minesquad.bukkit.websocket.errors.EventNotFoundErrorResponse;
+import com.github.minesquad.bukkit.websocket.errors.InternalServerErrorResponse;
 import org.java_websocket.WebSocket;
 
 import java.lang.reflect.InvocationTargetException;

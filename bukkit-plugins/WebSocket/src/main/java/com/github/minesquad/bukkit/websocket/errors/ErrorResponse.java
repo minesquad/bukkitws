@@ -1,6 +1,6 @@
-package com.sindyukov.bukkit.socket.websocket.errors;
+package com.github.minesquad.bukkit.websocket.errors;
 
-import com.sindyukov.bukkit.socket.websocket.ResponseInterface;
+import com.github.minesquad.bukkit.websocket.ResponseInterface;
 
 abstract public class ErrorResponse implements ResponseInterface {
 

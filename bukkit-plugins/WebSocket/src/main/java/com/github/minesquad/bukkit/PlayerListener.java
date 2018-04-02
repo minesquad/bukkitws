@@ -1,4 +1,4 @@
-package com.sindyukov.bukkit.socket;
+package com.github.minesquad.bukkit;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

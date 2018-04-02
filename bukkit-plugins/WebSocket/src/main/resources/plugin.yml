@@ -1,3 +1,3 @@
 name: WebSocket
-main: com.sindyukov.bukkit.socket.WebSocketPlugin
+main: WebSocketPlugin
 version: ${version}

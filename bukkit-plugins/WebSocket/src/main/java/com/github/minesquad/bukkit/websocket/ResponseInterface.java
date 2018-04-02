@@ -1,4 +1,4 @@
-package com.sindyukov.bukkit.socket.websocket;
+package com.github.minesquad.bukkit.websocket;
 
 import com.google.gson.JsonObject;
 

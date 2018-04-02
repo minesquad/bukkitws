@@ -1,9 +1,9 @@
-package com.sindyukov.bukkit.socket.workers;
+package com.github.minesquad.bukkit.workers;
 
+import com.github.minesquad.bukkit.WebSocketPlugin;
+import com.github.minesquad.bukkit.system.MacSystemMonitor;
+import com.github.minesquad.bukkit.system.SystemMonitor;
 import com.google.gson.JsonObject;
-import com.sindyukov.bukkit.socket.WebSocketPlugin;
-import com.sindyukov.bukkit.socket.system.MacSystemMonitor;
-import com.sindyukov.bukkit.socket.system.SystemMonitor;
 
 import java.util.TimerTask;
 
