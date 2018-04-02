@@ -42,6 +42,11 @@ public class PlayerListener implements Listener {
     private void broadcastOnlineEvent(String event) {
         Collection<? extends Player> onlinePlayers = Bukkit.getOnlinePlayers();
 
+//        onlinePlayers.forEach(player -> {
+//            System.out.println(player);
+//        });
+
+
         JsonObject data = new JsonObject();
         data.addProperty("online", onlinePlayers.toString());
 
