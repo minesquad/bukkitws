@@ -1,0 +1,32 @@
+<div class="system-status" *ngIf="status">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>CPU</mat-card-title>
+      <mat-card-subtitle>
+        <span>Arch: {{ status['cpu']['arch'] }}, Cores: {{ status['cpu']['cores'] }}, JVM Uptime: {{ status['cpu']['uptime'] }}</span>
+        <br>{{ status['cpu']['usage'] }}%
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-footer>
+      <mat-progress-bar color="warn"
+                        mode="determinate"
+                        [value]="status['cpu']['usage']">
+      </mat-progress-bar>
+    </mat-card-footer>
+  </mat-card>
+  <mat-card *ngFor="let type of ['ram', 'swap', 'disk']">
+    <mat-card-header>
+      <mat-card-title>{{ type.toUpperCase() }}</mat-card-title>
+      <mat-card-subtitle>
+        <span>Total: {{ status[type]['total'] }}, Free: {{ status[type]['free'] }}, Used: {{ status[type]['used'] }}</span>
+        <br>{{ status[type]['usage'] }}%
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-footer>
+      <mat-progress-bar color="primary"
+                        mode="determinate"
+                        [value]="status['ram']['usage']">
+      </mat-progress-bar>
+    </mat-card-footer>
+  </mat-card>
+</div>

@@ -20,10 +20,10 @@ export class MinecraftStatsComponent implements OnInit, OnDestroy {
   }
 
   async ngOnInit() {
-    await this.socket.join('minecraft');
-    this._subscription = this.socket.on('minecraft', 'stats').subscribe((stats: any) => {
-      this._stats = stats;
-    });
+    // await this.socket.join('minecraft');
+    // this._subscription = this.socket.on('minecraft', 'stats').subscribe((stats: any) => {
+    //   this._stats = stats;
+    // });
   }
 
   ngOnDestroy() {

@@ -48,7 +48,8 @@ public class SystemWorker extends TimerTask {
             data.add("disk", disk);
             plugin.socket.broadcast("system", "status", data);
         } catch (Exception ex) {
-            System.out.println("error running thread " + ex.getMessage());
+            System.out.println("SystemWorker error: " + ex.getClass());
+            ex.printStackTrace();
         }
     }
 

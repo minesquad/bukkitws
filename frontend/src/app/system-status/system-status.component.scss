@@ -1,17 +1,21 @@
 :host {
   display: block;
   width: 100%;
-  .stats {
+  .system-status {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: flex-start;
     mat-card {
-      width: calc(100% / 3);
+      width: calc(100% / 4);
       mat-card-header {
         .mat-card-header-text {
           width: 100%;
         }
+      }
+      mat-card-subtitle span {
+        display: block;
+        font-size: 10px;
       }
     }
   }

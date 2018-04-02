@@ -49,7 +49,11 @@ abstract public class Channel {
         message.add("data", data);
 
         connections.forEach((String key, WebSocket socket) -> {
-            socket.send(message.toString());
+            try {
+                socket.send(message.toString());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         });
     }
 

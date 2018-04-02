@@ -39,6 +39,7 @@ public class ChannelEvent {
         JsonObject resp = new JsonObject();
         resp.addProperty("id", this.id);
         resp.addProperty("status", success);
+        resp.addProperty("event", "response");
         resp.add("data", response);
 
         connection.send(resp.toString());

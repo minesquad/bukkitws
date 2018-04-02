@@ -1,3 +1,0 @@
-name: PhoenixIntegration
-main: com.akluev.bukkit.phoenix.PhoenixIntegrationPlugin
-version: ${version}

@@ -9,7 +9,6 @@ import { environment } from '../environments/environment';
 import { WebsocketService } from './shared/websocket.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UiModule } from './ui/ui.module';
-import { ServerStatsComponent } from './server-stats/server-stats.component';
 import { ScriptLoaderService } from './shared/script-loader.service';
 import { MapComponent } from './map/map.component';
 import { UsersModule } from './users/users.module';
@@ -19,11 +18,12 @@ import { MinecraftStatsComponent } from './minecraft-stats/minecraft-stats.compo
 import { MinecraftModule } from './minecraft/minecraft.module';
 import { TopComponent } from './top/top.component';
 import { AboutComponent } from './about/about.component';
+import { SystemStatusComponent } from './system-status/system-status.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ServerStatsComponent,
+    SystemStatusComponent,
     MinecraftStatsComponent,
     HomepageComponent,
     MapComponent,

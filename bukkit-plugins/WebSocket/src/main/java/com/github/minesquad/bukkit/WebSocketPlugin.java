@@ -1,14 +1,12 @@
 package com.github.minesquad.bukkit;
 
 import java.io.IOException;
-import java.util.Timer;
 import java.util.concurrent.Executors;
 
 import com.github.minesquad.bukkit.listeners.PlayerListener;
 import com.github.minesquad.bukkit.channels.ServerChannel;
 import com.github.minesquad.bukkit.channels.SystemChannel;
 import com.github.minesquad.bukkit.channels.TestChannel;
-import com.github.minesquad.bukkit.workers.SystemWorker;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -19,7 +17,6 @@ public class WebSocketPlugin extends JavaPlugin {
 
     private final PlayerListener playerListener = new PlayerListener(this);
     public WebSocketServer socket;
-    private SystemWorker systemWorker = new SystemWorker(this);
 
     /**
      * Конструктор
@@ -47,11 +44,7 @@ public class WebSocketPlugin extends JavaPlugin {
             getLogger().info("run ChatServer");
         });
 
-        // Запускаем WebSocket сервер
-        Executors.newSingleThreadExecutor().execute(() -> {
-            Timer timer = new Timer(true);
-            timer.scheduleAtFixedRate(systemWorker, 0, 5000);
-        });
+
 
     }
 

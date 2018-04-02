@@ -4,7 +4,12 @@ import java.math.BigInteger;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.util.HashMap;
+import java.util.Timer;
+import java.util.concurrent.Executors;
 
+import com.github.minesquad.bukkit.websocket.errors.BadMessageErrorResponse;
+import com.github.minesquad.bukkit.websocket.errors.ChannelNotFoundErrorResponse;
+import com.github.minesquad.bukkit.workers.SystemWorker;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.github.minesquad.bukkit.websocket.Channel;
@@ -19,17 +24,20 @@ public class WebSocketServer extends org.java_websocket.server.WebSocketServer {
 
     private final WebSocketPlugin plugin;
     private final JsonParser parser = new JsonParser();
+    private SystemWorker systemWorker;
 
     private HashMap<String, Channel> channels = new HashMap<>();
 
     WebSocketServer(WebSocketPlugin instance, int port) {
         super(new InetSocketAddress(port));
         plugin = instance;
+        systemWorker = new SystemWorker(plugin);
     }
 
     public WebSocketServer(WebSocketPlugin instance, InetSocketAddress address) {
         super(address);
         plugin = instance;
+        systemWorker = new SystemWorker(plugin);
     }
 
     /**
@@ -59,8 +67,9 @@ public class WebSocketServer extends org.java_websocket.server.WebSocketServer {
      */
     @Override
     public void onClose(WebSocket conn, int code, String reason, boolean remote) {
-        broadcast(conn + " has left the room!");
-        System.out.println(conn + " has left the room!");
+        this.channels.forEach((String channelName, Channel channel) -> {
+            channel.leave(conn);
+        });
     }
 
     /**
@@ -83,10 +92,31 @@ public class WebSocketServer extends org.java_websocket.server.WebSocketServer {
             } else {
                 data = new JsonObject();
             }
+            if (!channels.containsKey(channelName)) {
+                JsonObject resp = new JsonObject();
+                resp.addProperty("id", messageId);
+                resp.addProperty("status", false);
+                resp.addProperty("event", "response");
+                resp.add("data", (new ChannelNotFoundErrorResponse(channelName)).getMessage());
+
+                conn.send(resp.toString());
+                return;
+            }
+
             Channel channel = channels.get(channelName);
             channel.handle(new ChannelEvent(messageId, event, conn, data));
         } catch (Exception e) {
-            e.printStackTrace();
+            try {
+                JsonObject resp = new JsonObject();
+                resp.addProperty("status", false);
+                resp.addProperty("event", "response");
+                resp.add("data", (new BadMessageErrorResponse()).getMessage());
+                conn.send(resp.toString());
+                conn.close();
+                e.printStackTrace();
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
         }
     }
 
@@ -116,6 +146,12 @@ public class WebSocketServer extends org.java_websocket.server.WebSocketServer {
     @Override
     public void onStart() {
         System.out.println("Server started!");
+
+        // Запускаем WebSocket сервер
+        Executors.newSingleThreadExecutor().execute(() -> {
+            Timer timer = new Timer(true);
+            timer.scheduleAtFixedRate(systemWorker, 0, 5000);
+        });
     }
 
     public void broadcast(String channelName, String event) {
