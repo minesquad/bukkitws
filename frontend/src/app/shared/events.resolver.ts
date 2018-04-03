@@ -3,7 +3,7 @@ import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/r
 import { WebsocketService } from '../shared/websocket.service';
 
 @Injectable()
-export class OnlineResolver implements Resolve<any> {
+export class EventsResolver implements Resolve<any> {
 
   constructor(private socket: WebsocketService) {
   }
@@ -12,7 +12,7 @@ export class OnlineResolver implements Resolve<any> {
                 state: RouterStateSnapshot): Promise<any> {
     await this.socket.join('minecraft');
 
-    const response: any = await this.socket.push('minecraft', 'online');
-    return response.online;
+    const response: any = await this.socket.push('minecraft', 'events');
+    return response.events;
   }
 }

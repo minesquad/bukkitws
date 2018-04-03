@@ -22,6 +22,8 @@ import { SystemStatusComponent } from './system-status/system-status.component';
 import { MainFrameComponent } from './main-frame/main-frame-component';
 import { AppResolver } from './app.resolver';
 import { OnlineResolver } from './shared/online.resolver';
+import { MinecraftEventsComponent } from './minecraft-events/minecraft-events.component';
+import { EventsResolver } from './shared/events.resolver';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,7 @@ import { OnlineResolver } from './shared/online.resolver';
     AppComponent,
     SystemStatusComponent,
     MinecraftStatsComponent,
+    MinecraftEventsComponent,
     HomepageComponent,
     MapComponent,
     PageNotFoundComponent,
@@ -49,6 +52,7 @@ import { OnlineResolver } from './shared/online.resolver';
     ScriptLoaderService,
     AppResolver,
     OnlineResolver,
+    EventsResolver,
   ],
   bootstrap: [AppComponent]
 })

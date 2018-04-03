@@ -1,5 +1,9 @@
 :host {
-  display: block;
   width: 100%;
   min-height: calc(100vh - 64px - 85px);
+  display: flex;
+  flex-direction: row;
+  .col {
+    flex: 1;
+  }
 }

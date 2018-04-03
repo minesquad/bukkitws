@@ -6,6 +6,7 @@ import java.util.concurrent.Executors;
 import com.github.minesquad.bukkit.listeners.PlayerListener;
 import com.github.minesquad.bukkit.channels.MinecraftChannel;
 import com.github.minesquad.bukkit.channels.SystemChannel;
+import com.github.minesquad.bukkit.minecraft.EventsPool;
 import com.github.minesquad.bukkit.system.SystemStatus;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -17,6 +18,7 @@ public class WebSocketPlugin extends JavaPlugin {
 
     private final PlayerListener playerListener = new PlayerListener(this);
     public WebSocketServer socket;
+    public EventsPool eventsPool = new EventsPool(50); // Todo move 50 to config
     public SystemStatus system = new SystemStatus();
 
     /**
@@ -24,7 +26,7 @@ public class WebSocketPlugin extends JavaPlugin {
      */
     public WebSocketPlugin() {
         socket = new WebSocketServer(this, 9999);
-        socket.registerChannel(new MinecraftChannel());
+        socket.registerChannel(new MinecraftChannel(this));
         socket.registerChannel(new SystemChannel(this));
     }
 

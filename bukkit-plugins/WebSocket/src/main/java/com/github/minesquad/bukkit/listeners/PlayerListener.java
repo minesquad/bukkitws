@@ -1,6 +1,7 @@
 package com.github.minesquad.bukkit.listeners;
 
 import com.github.minesquad.bukkit.WebSocketPlugin;
+import com.github.minesquad.bukkit.minecraft.MinecraftEvent;
 import com.github.minesquad.bukkit.minecraft.ServerTools;
 import com.google.gson.JsonObject;
 import org.bukkit.Bukkit;
@@ -27,6 +28,7 @@ public class PlayerListener implements Listener {
      */
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
+        plugin.eventsPool.push(new MinecraftEvent("PlayerJoin", event.getPlayer()));
         this.broadcastOnlineEvent();
     }
 
@@ -37,11 +39,13 @@ public class PlayerListener implements Listener {
      */
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
+        plugin.eventsPool.push(new MinecraftEvent("PlayerQuit", event.getPlayer()));
         this.broadcastOnlineEvent();
     }
 
     private void broadcastOnlineEvent() {
         plugin.socket.broadcast("minecraft", "online", ServerTools.getOnlineJsonObject());
+        plugin.socket.broadcast("minecraft", "events", plugin.eventsPool.toJsonObject());
     }
 
 }

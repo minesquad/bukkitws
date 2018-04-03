@@ -8,6 +8,7 @@ import { AboutComponent } from './about/about.component';
 import { MainFrameComponent } from './main-frame/main-frame-component';
 import { AppResolver } from './app.resolver';
 import { OnlineResolver } from './shared/online.resolver';
+import { EventsResolver } from './shared/events.resolver';
 
 const routes: Routes = [
   <Route>{
@@ -18,7 +19,8 @@ const routes: Routes = [
         path: '',
         component: HomepageComponent,
         resolve: {
-          online: OnlineResolver
+          online: OnlineResolver,
+          events: EventsResolver,
         }
       },
       {
