@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { WebsocketService } from '../shared/websocket.service';
 import { Subscription } from 'rxjs/Subscription';
+import { SystemStatusComponent } from '../system-status/system-status.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'mine-minecraft-stats',
@@ -9,25 +11,24 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class MinecraftStatsComponent implements OnInit, OnDestroy {
 
-  private _subscription: Subscription;
-  private _stats: any;
+  private subscription: Subscription;
+  private online: any;
 
-  get stats(): any {
-    return this._stats;
+  constructor(private socket: WebsocketService, private route: ActivatedRoute) {
   }
 
-  constructor(private socket: WebsocketService) {
-  }
 
   async ngOnInit() {
-    // await this.socket.join('minecraft');
-    // this._subscription = this.socket.on('minecraft', 'stats').subscribe((stats: any) => {
-    //   this._stats = stats;
-    // });
+    this.route.data.subscribe((data: any) => {
+      this.online = data.online;
+    });
+    this.subscription = this.socket.on('minecraft', 'online').subscribe((data: any) => {
+      this.online = data.online;
+    });
   }
 
   ngOnDestroy() {
-    this._subscription.unsubscribe();
+    this.subscription.unsubscribe();
   }
 
 }

@@ -2,6 +2,7 @@ package com.github.minesquad.bukkit.websocket;
 
 import com.google.gson.JsonObject;
 import org.java_websocket.WebSocket;
+import org.java_websocket.exceptions.WebsocketNotConnectedException;
 
 import java.math.BigInteger;
 
@@ -42,7 +43,13 @@ public class ChannelEvent {
         resp.addProperty("event", "response");
         resp.add("data", response);
 
-        connection.send(resp.toString());
+        try {
+            connection.send(resp.toString());
+        } catch (WebsocketNotConnectedException e) {
+            //do nothing
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public WebSocket getConnection() {

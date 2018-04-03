@@ -7,6 +7,7 @@ import { TopComponent } from './top/top.component';
 import { AboutComponent } from './about/about.component';
 import { MainFrameComponent } from './main-frame/main-frame-component';
 import { AppResolver } from './app.resolver';
+import { OnlineResolver } from './shared/online.resolver';
 
 const routes: Routes = [
   <Route>{
@@ -15,7 +16,10 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: HomepageComponent
+        component: HomepageComponent,
+        resolve: {
+          online: OnlineResolver
+        }
       },
       {
         path: 'map',

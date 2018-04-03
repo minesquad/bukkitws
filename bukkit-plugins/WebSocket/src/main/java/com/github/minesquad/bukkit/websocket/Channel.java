@@ -5,9 +5,15 @@ import com.google.gson.JsonObject;
 import com.github.minesquad.bukkit.websocket.errors.EventNotFoundErrorResponse;
 import com.github.minesquad.bukkit.websocket.errors.InternalServerErrorResponse;
 import org.java_websocket.WebSocket;
+import org.java_websocket.exceptions.WebsocketNotConnectedException;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 abstract public class Channel {
 
@@ -23,13 +29,15 @@ abstract public class Channel {
         connections.remove(conn.toString());
     }
 
-    public void joinAction(ChannelEvent event) {
+    @ChannelAction(event = "join")
+    public void onJoin(ChannelEvent event) {
         System.out.println("joinAction!");
         join(event.getConnection());
         event.response(new JsonObject());
     }
 
-    public void leaveAction(ChannelEvent event) {
+    @ChannelAction(event = "leave")
+    public void onLeave(ChannelEvent event) {
         leave(event.getConnection());
         event.response(new JsonObject());
     }
@@ -48,9 +56,11 @@ abstract public class Channel {
         message.addProperty("event", event);
         message.add("data", data);
 
-        connections.forEach((String key, WebSocket socket) -> {
+        connections.values().forEach((WebSocket socket) -> {
             try {
                 socket.send(message.toString());
+            } catch (WebsocketNotConnectedException e) {
+                //do nothing
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -63,8 +73,28 @@ abstract public class Channel {
                 event.response(new NotJoinedErrorResponse(getName()));
                 return;
             }
-            getClass().getMethod(event.getName() + "Action", ChannelEvent.class).invoke(this, event);
-        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
+
+            ArrayList<Method> methods = new ArrayList<>(Arrays.asList(getClass().getMethods()));
+            methods.removeIf((Method method) -> {
+                if (!method.isAnnotationPresent(ChannelAction.class)) {
+                    return true;
+                }
+                ChannelAction annotation = method.getAnnotation(ChannelAction.class);
+
+                return !annotation.event().equals(event.getName());
+            });
+
+            if (methods.isEmpty()) {
+                event.response(new EventNotFoundErrorResponse(getName(), event.getName()));
+                return;
+            }
+
+            if (methods.size() > 1) {
+                throw new RuntimeException("Multiple handlers for event `" + event + "` in `" + getName() + "` channel");
+            }
+
+            methods.get(0).invoke(this, event);
+        } catch (InvocationTargetException | IllegalAccessException e) {
             e.printStackTrace();
             event.response(new EventNotFoundErrorResponse(getName(), event.getName()));
         } catch (Exception e) {
@@ -72,5 +102,4 @@ abstract public class Channel {
             event.response(new InternalServerErrorResponse());
         }
     }
-
 }

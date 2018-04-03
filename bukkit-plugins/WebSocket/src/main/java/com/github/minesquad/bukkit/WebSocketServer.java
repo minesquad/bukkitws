@@ -9,6 +9,7 @@ import java.util.concurrent.Executors;
 
 import com.github.minesquad.bukkit.websocket.errors.BadMessageErrorResponse;
 import com.github.minesquad.bukkit.websocket.errors.ChannelNotFoundErrorResponse;
+import com.github.minesquad.bukkit.workers.MinecraftOnlineWorker;
 import com.github.minesquad.bukkit.workers.SystemWorker;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -25,6 +26,7 @@ public class WebSocketServer extends org.java_websocket.server.WebSocketServer {
     private final WebSocketPlugin plugin;
     private final JsonParser parser = new JsonParser();
     private SystemWorker systemWorker;
+    private MinecraftOnlineWorker minecraftOnlineWorker;
 
     private HashMap<String, Channel> channels = new HashMap<>();
 
@@ -32,6 +34,7 @@ public class WebSocketServer extends org.java_websocket.server.WebSocketServer {
         super(new InetSocketAddress(port));
         plugin = instance;
         systemWorker = new SystemWorker(plugin);
+        minecraftOnlineWorker = new MinecraftOnlineWorker(plugin);
     }
 
     public WebSocketServer(WebSocketPlugin instance, InetSocketAddress address) {
@@ -150,7 +153,11 @@ public class WebSocketServer extends org.java_websocket.server.WebSocketServer {
         // Запускаем WebSocket сервер
         Executors.newSingleThreadExecutor().execute(() -> {
             Timer timer = new Timer(true);
-            timer.scheduleAtFixedRate(systemWorker, 0, 5000);
+            timer.scheduleAtFixedRate(systemWorker, 1000, 5000);
+        });
+        Executors.newSingleThreadExecutor().execute(() -> {
+            Timer timer = new Timer(true);
+            timer.scheduleAtFixedRate(minecraftOnlineWorker, 1000, 5000);
         });
     }
 

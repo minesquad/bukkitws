@@ -21,6 +21,7 @@ import { AboutComponent } from './about/about.component';
 import { SystemStatusComponent } from './system-status/system-status.component';
 import { MainFrameComponent } from './main-frame/main-frame-component';
 import { AppResolver } from './app.resolver';
+import { OnlineResolver } from './shared/online.resolver';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { AppResolver } from './app.resolver';
     WebsocketService,
     ScriptLoaderService,
     AppResolver,
+    OnlineResolver,
   ],
   bootstrap: [AppComponent]
 })

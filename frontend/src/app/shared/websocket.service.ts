@@ -117,7 +117,7 @@ export class WebsocketService {
     });
   }
 
-  private push<T>(channel: string, event: string, data: any = {}, timeout = 5000): Promise<T> {
+  public push<T>(channel: string, event: string, data: any = {}, timeout = 5000): Promise<T> {
     this.requestCounter++;
     const id = this.requestCounter;
     return new Promise((resolve, reject) => {
