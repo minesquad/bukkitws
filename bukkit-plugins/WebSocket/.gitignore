@@ -1,2 +1,6 @@
-target
 websocket-plugin.iml
+target/classes
+target/generated-sources
+target/maven-archiver
+target/maven-status
+target/original-websocket-plugin-*.jar
