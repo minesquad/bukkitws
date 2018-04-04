@@ -11,7 +11,7 @@ export class MapComponent implements OnInit, OnDestroy {
 
   @ViewChild('map')
   private map: ElementRef;
-  private frame: SafeResourceUrl;
+  public frame: SafeResourceUrl;
 
   constructor(private sanitizer: DomSanitizer) {
     const l = window.location;

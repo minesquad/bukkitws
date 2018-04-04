@@ -12,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 export class MinecraftStatsComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription;
-  private online: any;
+  public online: any;
 
   constructor(private socket: WebsocketService, private route: ActivatedRoute) {
   }

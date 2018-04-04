@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs/Subscription';
 export class SystemStatusComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription;
-  private status: any;
+  public status: any;
 
   private static humanizeFileSize(fileSizeInBytes) {
     let i = -1;

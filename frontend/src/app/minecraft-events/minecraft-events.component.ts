@@ -12,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 export class MinecraftEventsComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription;
-  private events: any = [];
+  public events: any = [];
 
   constructor(private socket: WebsocketService, private route: ActivatedRoute) {
   }
