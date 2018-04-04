@@ -51,7 +51,7 @@ export class WebsocketService {
 
   public internalConnect(callback: () => void) {
     this.connectionAttempts++;
-    this.socket = new WebSocket('ws://127.0.0.1:9999/');
+    this.socket = new WebSocket('ws://' + document.location.hostname + ':9999/');
 
     this.socket.onopen = () => {
       this.connectionAttempts = 0;

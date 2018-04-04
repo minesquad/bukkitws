@@ -9,8 +9,8 @@
       "urls": [
         "/favicon.ico",
         "/index.html",
-        "/inline.77cdbe3802c493eed781.bundle.js",
-        "/main.3644e20c00d6887fedfe.bundle.js",
+        "/inline.66e48372dd4fa0df79e0.bundle.js",
+        "/main.fefe64e2ffca1089da33.bundle.js",
         "/polyfills.4461772dfa00c77ee03d.bundle.js",
         "/styles.41c4d27acb3f3078a7a9.bundle.css"
       ],
@@ -829,9 +829,9 @@
   ],
   "dataGroups": [],
   "hashTable": {
-    "/inline.77cdbe3802c493eed781.bundle.js": "d90a5ca94a5d7f799a361b8e0e31874d2f81acc8",
+    "/inline.66e48372dd4fa0df79e0.bundle.js": "3d12022a5f9f598c18b379df89a22d97d322c21a",
     "/assets/minecraft/entities/1.png": "3c6913c42e1559725b27c994a35fbb08f5b1a9ec",
-    "/main.3644e20c00d6887fedfe.bundle.js": "5bd3b76db35c37eaceaedb3040f99358d599a848",
+    "/main.fefe64e2ffca1089da33.bundle.js": "e82fd2c391151783e017556d301078460163e6c1",
     "/assets/minecraft/entities/10.png": "abe07ff6e44a2b5a4668d8d0cefd6c12af20176b",
     "/polyfills.4461772dfa00c77ee03d.bundle.js": "eff6a0389e8f3701c0b11e227ce4e296f3a6a5f8",
     "/assets/minecraft/entities/100.png": "e238a165f0119a26ea9b75bf4a01949363874c99",
@@ -839,7 +839,7 @@
     "/assets/minecraft/entities/101.png": "67b0ff3653f53be263c44506cbb3236e0fdb669f",
     "/favicon.ico": "84161b857f5c547e3699ddfbffc6d8d737542e01",
     "/assets/minecraft/entities/102.png": "194e616deca07c99b43530f544558bdae25c360c",
-    "/index.html": "3c32a6d9f570744e0833a56e4e4235974ddd6261",
+    "/index.html": "76f2f56e93ef9a3ffd10dd43d16a2daa6bd29fbe",
     "/assets/minecraft/entities/103.png": "16ec75152e18b592ba39d0a7c1648ac884f657f4",
     "/assets/minecraft/entities/104.png": "26f418ee4e3e3a4b909394d3f50cb53bad065781",
     "/assets/minecraft/entities/105.png": "e8f149a10d454b6955c7e73eec5e8cd6338090f5",
