@@ -31,7 +31,7 @@ public class WebSocketServer extends org.java_websocket.server.WebSocketServer {
     private HashMap<String, Channel> channels = new HashMap<>();
 
     WebSocketServer(WebSocketPlugin instance, int port) {
-        super(new InetSocketAddress(port));
+        super(new InetSocketAddress("0.0.0.0", port));
         plugin = instance;
         systemWorker = new SystemWorker(plugin);
         minecraftOnlineWorker = new MinecraftWorker(plugin);
