@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('minelixir App', () => {
+describe('bukkitws App', () => {
   let page: AppPage;
 
   beforeEach(() => {
