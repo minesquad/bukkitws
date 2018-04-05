@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { WebsocketService } from '../shared/websocket.service';
 import { Subscription } from 'rxjs/Subscription';
-import { SystemStatusComponent } from '../system-status/system-status.component';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

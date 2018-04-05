@@ -1,12 +1,12 @@
 :host {
   display: block;
   width: 100%;
-  min-height: calc(100vh - 64px - 89px);
+  min-height: calc(100vh - 176px);
   background-color: #000;
   iframe {
     border: 0;
     width: 100%;
-    min-height: calc(100vh - 64px - 89px);
+    min-height: calc(100vh - 180px);
   }
 }
 
