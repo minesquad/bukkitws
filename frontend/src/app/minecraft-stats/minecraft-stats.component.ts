@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { WebsocketService } from '../shared/websocket.service';
 import { Subscription } from 'rxjs/Subscription';
 import { ActivatedRoute } from '@angular/router';
+import { PlayerModel } from '../shared/player.model';
 
 @Component({
   selector: 'mine-minecraft-stats',
@@ -11,11 +12,10 @@ import { ActivatedRoute } from '@angular/router';
 export class MinecraftStatsComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription;
-  public online: any;
+  public online: PlayerModel[] = [];
 
   constructor(private socket: WebsocketService, private route: ActivatedRoute) {
   }
-
 
   async ngOnInit() {
     this.route.data.subscribe((data: any) => {

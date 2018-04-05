@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { WebsocketService } from '../shared/websocket.service';
 import { Subscription } from 'rxjs/Subscription';
 import { ActivatedRoute } from '@angular/router';
+import { EventModel } from '../shared/event.model';
 
 @Component({
   selector: 'mine-minecraft-events',
@@ -11,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 export class MinecraftEventsComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription;
-  public events: any = [];
+  public events: EventModel[] = [];
 
   constructor(private socket: WebsocketService, private route: ActivatedRoute) {
   }
